@@ -1,20 +1,42 @@
 @media (min-width: 770px) {
     body {
-        width: 800px;
+        width: 100%;
         line-height: 1.5;
     }
-    
+
+    /* scotto.me-style two-column layout */
+    .layout {
+        flex-direction: row;
+        justify-content: center;
+        gap: var(--layout-gap);
+    }
+
+    #sidebar {
+        align-items: flex-start;
+        position: sticky;
+        top: 48px;
+        padding-right: 24px;
+        max-width: 200px;
+    }
+
+    #sidebar nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        font-size: 0.875em;
+    }
+
+    main#content {
+        max-width: var(--content-max);
+        flex: 1;
+        min-width: 0;
+    }
+
     main#content hr {
         width: 108%;
         margin-left: -3.8%;
     }
-    
-     /* styling for each blog post too (index.html styles) */
-     header#banner h2 {
-        font-size: 28px;
-        font-size: 2.8rem;
-    }
-    
+
     main#content h3 {
         font-size: 23px;
         font-size: 2.3rem;
@@ -24,34 +46,33 @@
         font-size: 19px;
         font-size: 1.9rem;
     }
-    
+
     main#content ul#posts {
         font-size: 18px;
         font-size: 1.8rem;
     }
-    
+
     /* styling for each blog post (single.html styles) */
     main#content header#post-header h1 {
         font-size: 30px;
         font-size: 3.0rem;
     }
-    
+
     main#content img {
         max-width: 90%;
     }
-    
+
     main#content figure {
         margin-left: -3.8%;
     }
-    
+
     main#content figure img {
         max-width: 108%;
     }
-    
+
     main#content pre {
         width: 108%;
         margin-left: -3.8%;
         padding: 1.5rem 2.2rem;
     }
-    }
-    
+}

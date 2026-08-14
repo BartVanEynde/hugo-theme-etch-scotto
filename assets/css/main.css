@@ -1,24 +1,33 @@
 :root {
-    --bkgd: #1a686e06;
-    --dark-bkgd: #232B3A;
-    --text: #313a3d;
+    /* scotto.me palette */
+    --bkgd: #f5f5f5;
+    --dark-bkgd: #333333;
+    --text: #212025;
     --dark-text: #ebebeb;
-    --nav-menu: #454545;
-    --link: #1a686e;
-    --link-hover: #154c50;
-    --dark-link: #39d7e2;
-    --dark-link-hover: #27959d;
-    --home-tag-box: #a32fab9f;
-    --home-tag-hover: #a32fab;
-    --dark-sidenote-label: #A32FAB;
-    --dark-sidenote-active: #BA63C0;
-    --series: #154c506c;
-    --dark-series-border: #3ee4f06c;
-    --table-light: #a32fab17;
-    --table-darker: #a32fab2e;
-    --dark-table-light: #255460;
-    --dark-table-darker: #244956;
-    --dark-table-th: #243644;
+    --nav-menu: #6b7280;
+    --dark-nav: #9ca3af;
+    --link: #F54900;
+    --link-hover: #c93e00;
+    --dark-link: #FFB900;
+    --dark-link-hover: #ffd34d;
+    --home-tag-box: #F5490060;
+    --home-tag-hover: #F54900;
+    --dark-sidenote-label: #FFB900;
+    --dark-sidenote-active: #ffd34d;
+    --series: #F5490028;
+    --dark-series-border: #FFB90028;
+    --table-light: #F549000a;
+    --table-darker: #F5490014;
+    --dark-table-light: #1d4a63;
+    --dark-table-darker: #16394d;
+    --dark-table-th: #0f2f44;
+    /* scotto.me layout tokens */
+    --sidebar-width: 200px;
+    --content-max: 42rem;
+    --layout-max: 64rem;
+    --layout-gap: 2rem;
+    --font-title: Sora, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-sans: InterVariable, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 *, *:before, *:after {
@@ -33,7 +42,7 @@ html {
 body {
     font-size: 16px;
     font-size: 1.6rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: var(--font-sans);
     color: var(--text);
     width: 100%;
     margin: 0 auto;
@@ -42,40 +51,68 @@ body {
     overflow-wrap: break-word;
 }
 
-/* styling for the header */
-header#banner {
-    border-bottom-style: solid;
-    padding: 0 0 5px 0;
+/* scotto.me-style layout: sidebar + content */
+.layout {
+    display: flex;
+    flex-direction: column;
+    max-width: var(--layout-max);
+    margin: 0 auto;
+    padding: 48px 0 0 0;
+    gap: var(--layout-gap);
 }
 
-header#banner a {
+/* styling for the sidebar (sidemenu) */
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+    height: fit-content;
+}
+
+#sidebar .site-title {
+    font-family: var(--font-title);
+    font-size: 1.15em;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+}
+
+#sidebar a {
     color: var(--text);
     text-decoration: none;
 }
 
-header#banner a:hover {
+#sidebar a:hover {
     text-decoration: underline;
 }
 
-header#banner nav {
-    display: inline-block;
-}
-
-header#banner nav ul {
+#sidebar nav ul {
     list-style-type: none;
-    font-size: 1.05em;
+    font-size: 1.0em;
+    font-weight: 300;
     text-transform: lowercase;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
 }
 
-header#banner nav ul li {
-    display: inline;
-    margin: 0 3px;
+#sidebar nav ul li {
+    margin: 0;
 }
 
-header#banner nav ul li a {
+#sidebar nav ul li a {
     color: var(--nav-menu);
+    font-weight: 300;
+}
+
+#sidebar nav ul li a.active {
+    color: var(--link);
+    font-weight: 400;
 }
 
 /* styling for all the main content */
@@ -493,7 +530,7 @@ footer#footer {
     font-weight: 400;
     color: var(--text);
     margin: 40px 0;
-    border-top-style: solid;
+    text-align: center;
     padding: 5px;
 }
 

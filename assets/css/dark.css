@@ -13,13 +13,19 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-header#banner a {
+#sidebar a {
     color: var(--dark-text);
     text-decoration: none;
 }
 
-header#banner nav ul li a {
+#sidebar nav ul li a {
     color: var(--dark-nav);
+    font-weight: 300;
+}
+
+#sidebar nav ul li a.active {
+    color: var(--dark-link);
+    font-weight: 400;
 }
 
 main#content a {
