@@ -1,3 +1,6 @@
+Work in progress
+
+
 # Etch
 
 Etch is a simple, responsive theme for [Hugo](https://gohugo.io) with a focus on writing. A live demo is available at https://lukasjoswiak.github.io/etch/.
