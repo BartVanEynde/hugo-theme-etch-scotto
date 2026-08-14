@@ -22,6 +22,10 @@ Etch is a simple, responsive theme for [Hugo](https://gohugo.io) with a focus on
 To install `etch`, download the repository into the `themes` folder in the root of your site.
 
 ```
+$ git submodule add https://github.com/BartVanEynde/hugo-theme-etch-scotto.git themes/etch
+```
+or
+```
 $ git submodule add https://github.com/LukasJoswiak/etch.git themes/etch
 ```
 
