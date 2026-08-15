@@ -1,0 +1,23 @@
+name: Sync from GitHub
+
+on:
+  schedule:
+    - cron: '0 23 * * *'   # daily 23:00 UTC (01:00 CEST)
+  workflow_dispatch: {}    # manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    container:
+      image: alpine/git:latest
+    # Gate: only runs where the SYNC_ENABLED secret exists (the Forgejo mirror).
+    # On GitHub Actions the secret is absent, so the job is skipped there.
+    if: secrets.SYNC_ENABLED == 'true'
+    steps:
+      - name: Sync GitHub main to this mirror
+        run: |
+          git clone https://github.com/BartVanEynde/hugo-theme-etch-scotto.git .
+          # push auth via Basic header (token-in-URL breaks curl intermittently);
+          # single quotes keep the secret value literal
+          git -c http.extraheader="Authorization: Basic $(printf 'x-access-token:%s' '${{ secrets.GITHUB_TOKEN }}' | base64 -w0)" \
+            push "http://forgejo:3000/${{ github.repository }}.git" main:main
