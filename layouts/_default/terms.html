@@ -1,13 +1,24 @@
 {{ define "main" }}
+{{- $tags := site.Taxonomies.tags }}
+
 <h3>{{ .Title }}</h3>
-<ul id="posts">
-{{- range .Pages }}
-    <li>
-        <a href="{{ .Permalink }}">
-            {{ .Title }}
-            <small>({{ len .Pages }})</small>
-        </a>
-    </li>
+
+{{- /* Top: all tags reverse sorted by usage, only used more than once */}}
+<div class="tag-cloud">
+{{- range $tags.ByCount }}
+    {{- if gt .Count 1 }}
+    <a href="{{ "/tags/" | relLangURL }}#{{ .Term | urlize }}">#{{ .Term }} ({{ .Count }})</a>
+    {{- end }}
+{{- end }}
+</div>
+
+{{- /* Sections: ALL tags (also once-used) sorted by name */}}
+{{- range $tags.Alphabetical }}
+<h2 id="{{ .Term | urlize }}">#{{ .Term }} ({{ .Count }})</h2>
+<ul class="tag-pages">
+{{- range .Pages.ByDate.Reverse }}
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
 {{- end }}
 </ul>
+{{- end }}
 {{ end }}

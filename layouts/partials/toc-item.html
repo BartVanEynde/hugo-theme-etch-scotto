@@ -1,0 +1,13 @@
+{{- if ge .Level 2 }}
+{{- $clean := .Title | replaceRE `\s*\([^)]*\)` "" }}
+{{- if eq $clean "" }}{{ $clean = .Title }}{{ end }}
+<li><a href="#{{ .ID }}">{{ $clean }}</a>
+{{- with .Headings }}
+<ul>
+{{- range . }}{{ partial "toc-item.html" . }}{{ end }}
+</ul>
+{{- end }}
+</li>
+{{- else }}
+{{- range .Headings }}{{ partial "toc-item.html" . }}{{ end }}
+{{- end }}

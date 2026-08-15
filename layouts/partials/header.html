@@ -2,11 +2,37 @@
     <h2 class="site-title"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h2>
     <nav>
         <ul>
-            {{ range .Site.Menus.main.ByWeight -}}
+            {{- range .Site.Menus.main.ByWeight }}
             <li>
                 {{ .Pre }}<a href="{{ .URL }}" title="{{ .Title }}"{{ if eq .URL $.RelPermalink }} class="active"{{ end }}>{{- .Name -}}</a>{{ .Post }}
             </li>
             {{- end }}
+            {{- /* All sections below the menu (widescreen only), skipping any already in menu.main */}}
+            {{- range .Site.Sections }}
+                {{- $secRel := .RelPermalink }}
+                {{- $inMenu := false }}
+                {{- range $.Site.Menus.main }}{{ if eq .URL $secRel }}{{ $inMenu = true }}{{ end }}{{ end }}
+                {{- if not $inMenu }}
+            <li class="section-link">
+                <a href="{{ .RelPermalink }}" title="{{ .Title }}"{{ if eq .RelPermalink $.RelPermalink }} class="active"{{ end }}>{{- .Title -}}</a>
+            </li>
+                {{- end }}
+            {{- end }}
+            {{- /* Mobile only: single generic link to the sections overview */}}
+            <li class="sections-link">
+                <a href="{{ "/sections/" | relURL }}" title="Sections">Sections</a>
+            </li>
         </ul>
     </nav>
+            {{- /* Page TOC in the sidebar (opt-in via toc: true in front matter) */}}
+            {{- if .Params.toc }}
+    <nav class="sidebar-toc">
+        <h4>Contents</h4>
+        {{- with .Fragments }}
+        <ul>
+        {{- range .Headings }}{{ partial "toc-item.html" . }}{{ end }}
+        </ul>
+        {{- end }}
+    </nav>
+            {{- end }}
 </aside>

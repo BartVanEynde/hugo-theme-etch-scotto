@@ -1,0 +1,27 @@
+{{ define "main" }}
+<article>
+    {{ partial "post-header.html" . }}
+    {{- with .Content -}}
+        {{ . | replaceRE "(<h[2-4] id=\"([^\"]+)\".+)(</h[2-4]+>)" `${1} <a href="#${2}" class="hanchor" ariaLabel="Anchor">#</a>${3}`| safeHTML }}
+    {{- end -}}
+    {{- /* related pages: any page sharing at least one tag, newest first */}}
+    {{- $page := . }}
+    {{- $tags := .Params.tags | default slice }}
+    {{- $related := slice }}
+    {{- range site.RegularPages.ByDate.Reverse }}
+        {{- if and (ne . $page) (intersect $tags (default slice .Params.tags)) }}
+            {{- $related = $related | append . }}
+        {{- end }}
+    {{- end }}
+    {{- with $related | first 5 }}
+    <nav class="related">
+        <h3>Related</h3>
+        <ul>
+        {{- range . }}
+            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+        {{- end }}
+        </ul>
+    </nav>
+    {{- end }}
+</article>
+{{ end }}
